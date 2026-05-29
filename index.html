@@ -185,10 +185,13 @@
                 const response = await fetch('/api/status');
                 const data = await response.json();
                 
+                // Determinamos el color de la memoria
+                const memoryColor = data.estado_memoria.includes("Conectada") ? "#3fb950" : "#f85149";
+
                 consoleDiv.innerHTML = `
                     > Ping a servidor central: <span style="color: #58a6ff;">OK</span><br>
-                    > Estado: <span style="color: #fff;">${data.estado}</span><br>
-                    > Módulos detectados: ${data.módulos_activos}<br>
+                    > Servidor Lógico: <span style="color: #fff;">${data.estado_servidor}</span><br>
+                    > Memoria RDS (Base de datos): <span style="color: ${memoryColor}; font-weight: bold;">${data.estado_memoria}</span><br>
                     > <span style="color: #58a6ff;">Mensaje: ${data.mensaje}</span>
                 `;
             } catch (error) {
