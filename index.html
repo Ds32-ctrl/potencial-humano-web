@@ -134,6 +134,27 @@
     <footer>
         <p>Potencial Humano Web &copy; 2026 | Arquitectura desplegada en la nube.</p>
     </footer>
+<script>
+        // Esta función se ejecuta apenas carga la página
+        document.addEventListener("DOMContentLoaded", async () => {
+            const consoleDiv = document.querySelector('.console');
+            consoleDiv.innerHTML = "> Estableciendo enlace con el motor lógico...<br>";
 
+            try {
+                // Hacemos la petición a la API a través del proxy inverso
+                const response = await fetch('/api/status');
+                const data = await response.json();
+                
+                // Inyectamos los datos reales en la consola de la interfaz
+                consoleDiv.innerHTML = `
+                    > Estado del sistema: <span class="highlight">${data.estado}</span><br>
+                    > Fase actual: ${data.fase_actual}<br>
+                    > Mensaje del motor: ${data.mensaje}
+                `;
+            } catch (error) {
+                consoleDiv.innerHTML = "> <span style='color: red;'>Error crítico: No se pudo conectar con el motor de la API.</span>";
+            }
+        });
+    </script>
 </body>
 </html>
