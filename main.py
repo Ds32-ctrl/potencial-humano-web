@@ -1,18 +1,20 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 
-# Inicializamos la aplicación
+# Inicializamos la aplicación ajustando las rutas de la documentación
 app = FastAPI(
     title="Core API - Implementation of Anthropotechnology",
     description="Motor lógico central para la expansión del potencial humano y evolución cognitiva.",
-    version="1.1.0"
+    version="1.1.0",
+    docs_url="/api/docs",
+    openapi_url="/api/openapi.json"
 )
 
-# Redirección automática a la documentación de FastAPI
+# Aceptamos la ruta con y sin barra para evitar el bucle de Nginx
 @app.get("/api")
+@app.get("/api/")
 def root():
-    return RedirectResponse(url="/docs")
-
+    return RedirectResponse(url="/api/docs")
 # Endpoint original mejorado
 @app.get("/api/status")
 def get_status():
